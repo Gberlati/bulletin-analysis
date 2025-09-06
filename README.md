@@ -23,8 +23,17 @@ Hoy en día, no hay herramientas que permitan extraer y analizar la información
 
 ## Métricas de exito
 
+- +10.000 Sociedades Argentinas normalizadas.
+- 
+
 ## Fuente de datos
+
+La fuente de datos es el [Boletin Oficial](https://www.boletinoficial.gob.ar). 
 
 ## Metodología
 
+
+
 ## Cronograma
+
+
