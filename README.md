@@ -2,7 +2,7 @@
 
 ## Problema para resolver
 
-Hoy en día, no hay herramientas que permitan extraer y analizar la información publica de las Sociedades Argentinas. Esto causa una falta de transparencia en los negocios que se construyen día a día en el pais.
+No existen herramientas que permitan extraer y analizar la información publica de las Sociedades Argentinas. Esto causa una falta de transparencia en los negocios que se construyen día a día en el pais.
 
 ## Pregunta de datos
 
@@ -19,7 +19,25 @@ Hoy en día, no hay herramientas que permitan extraer y analizar la información
 
 ## Alcance
 
-- 
+- Fuente de Datos Única: El análisis se limitará exclusivamente a la información publicada en las secciones de Sociedades del Boletín Oficial de la República Argentina.
+- Tipos de Avisos: El foco principal estará en los siguientes tipos de movimientos societarios:
+  - Constitución de sociedades (S.A., S.R.L., S.A.S., etc.).
+  - Cesión de cuotas o acciones.
+  - Designación y cese de autoridades.
+  - Aumentos de capital.
+  - Disolución y liquidación de sociedades.
+
+### Entregables Clave:
+- Una base de datos MySQL con tablas normalizadas que contengan la información estructurada de las sociedades.
+- El código fuente del scraper, los scripts de ETL y el pipeline de inferencia.
+- El checkpoint final del modelo Gemma fine-tuneado para la extracción de entidades.
+- Un informe final o dashboard con los hallazgos y visualizaciones que respondan a las preguntas de datos planteadas.
+
+### Fuera del Alcance
+- Otras Fuentes de Datos: No se cruzará información con otras fuentes externas como la AFIP, IGJ, o registros provinciales.
+- Análisis en Tiempo Real: El proyecto busca crear un dataset histórico y un pipeline replicable, no un sistema de monitoreo en tiempo real.
+- Interpretación Legal: El análisis se centrará en datos cuantitativos y tendencias, sin realizar interpretaciones legales o validaciones jurídicas sobre los avisos.
+- Avisos No Societarios: Se excluirán del análisis otros tipos de publicaciones del Boletín Oficial (edictos judiciales, licitaciones, marcas, etc.) que no correspondan a la vida de las sociedades comerciales.
 
 ## Métricas de exito
 
@@ -58,4 +76,51 @@ En esta fase convertiremos el texto no estructurado en una base de datos normali
 
 ## Cronograma
 
+### Septiembre
+#### Semana 2 (8-14 sep): Inicio y Desarrollo del scraper.
+- Configuración del entorno de desarrollo y repositorio.
+- Desarrollo y prueba del script de scraping para un lote de 1,000 avisos.
+- Diseño final del esquema de la base de datos para los datos crudos.
+
+#### Semana 3 (15-21 sep): Ejecución de la Extracción Masiva.
+- Lanzamiento del scraper para la totalidad de los avisos del periodo definido.
+- Monitoreo continuo del proceso, gestionando errores y posibles bloqueos.
+- Población completa de la tabla de datos crudos en MySQL.
+
+#### Semana 4 (22-28 sep): Inicio de Creación del Dataset de Entrenamiento.
+- Limpieza inicial de los textos extraídos.
+- Generación de los primeros 250 registros de alta calidad para el finetuning usando LangExtract y Gemini 2.5 Flash.
+
+### Octubre
+#### Semana 1 (29 sep - 5 oct): Finalización del Dataset de Entrenamiento.
+- Generación y validación manual de los 750 registros restantes hasta alcanzar los 1,000.
+- Revisión de la consistencia y calidad de las etiquetas JSON.
+
+#### Semana 2 (6-12 oct): Primer Experimento de Finetuning.
+- División del dataset en conjuntos de entrenamiento, validación y prueba (80/10/10).
+- Configuración del entorno de finetuning (QLoRA, bitsandbytes, etc.).
+- Ejecución del finetuning con el modelo Gemma 1B y evaluación inicial de la métrica de accuracy.
+
+#### Semana 3 (13-19 oct): Iteración y Finetuning del Modelo Principal.
+- Si accuracy < 70%: Analizar errores, corregir etiquetas en el dataset y re-entrenar.
+- Si accuracy > 70%: Iniciar el proceso de finetuning con el modelo Gemma 4B, que es el objetivo final.
+
+#### Semana 4 (20-26 oct): Finalización y Validación del Modelo.
+- Conclusión del entrenamiento del modelo Gemma 4B.
+- Evaluación exhaustiva con el conjunto de test.
+- Guardado del checkpoint final del modelo y preparación del script para inferencia masiva.
+
+### Noviembre
+#### Semana 1 (27 oct - 2 nov): Transformación y Carga (Proceso ETL).
+- Ejecución del script de inferencia sobre todos los avisos crudos.
+- Población de las tablas normalizadas y estructuradas con la información extraída por el modelo.
+
+#### Semana 2 (3-9 nov): Análisis de Datos y Cierre.
+- Realización del análisis exploratorio sobre la base de datos final.
+- Generación de métricas y visualizaciones para responder las preguntas de datos.
+- Redacción del informe final y documentación del proyecto.
+
+#### Deadline (10-14 nov): Entrega Final.
+- Margen para ajustes finales y revisión.
+- Entrega del proyecto.
 
