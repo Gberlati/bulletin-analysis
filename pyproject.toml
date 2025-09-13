@@ -1,0 +1,11 @@
+[project]
+name = "boletin-scraper"
+version = "1.0.0"
+description = "A robust scraper for Argentina's Official Bulletin."
+dependencies = [
+    "requests",
+    "beautifulsoup4",
+    "mysql-connector-python",
+    "python-dotenv",
+    "lxml",
+]
