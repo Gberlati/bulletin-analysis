@@ -36,9 +36,9 @@ def scrape_aviso(aviso_id_str):
     soup = BeautifulSoup(response.text, 'lxml')
 
     # Verificar si el aviso no existe
-    if soup.find('div', class_='alert alert-info alert-dismisable bg-warning alert-bora'):
-        logging.warning(f"No se encontró el aviso {aviso_id_str}. Asumiendo que es el final de la lista.")
-        return {'status': 'not_found'}
+    #if soup.find('div', class_='alert alert-info alert-dismisable bg-warning alert-bora'):
+    #    logging.warning(f"No se encontró el aviso {aviso_id_str}. Asumiendo que es el final de la lista.")
+    #    return {'status': 'not_found'}
 
     try:
         # Extracción de datos

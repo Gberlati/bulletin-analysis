@@ -19,5 +19,5 @@ DB_CONFIG = {
 # Configuración del Scraper
 BASE_URL = "https://www.boletinoficial.gob.ar/detalleAviso/segunda/{aviso_id}/" + today.strftime("%Y%m%d")
 START_AVISO_ID = 1
-SLEEP_INTERVAL_SECONDS = 2 # Tiempo de espera entre peticiones
+SLEEP_INTERVAL_SECONDS = 1 # Tiempo de espera entre peticiones
 RETRY_ON_EMPTY_SECONDS = 3600 # Tiempo de espera si no hay nuevos avisos (1 hora)
