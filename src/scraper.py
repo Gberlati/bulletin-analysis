@@ -35,10 +35,9 @@ def scrape_aviso(aviso_id_str):
 
     soup = BeautifulSoup(response.text, 'lxml')
 
-    # Verificar si el aviso no existe
-    #if soup.find('div', class_='alert alert-info alert-dismisable bg-warning alert-bora'):
-    #    logging.warning(f"No se encontró el aviso {aviso_id_str}. Asumiendo que es el final de la lista.")
-    #    return {'status': 'not_found'}
+    if soup.find('iframe', id='iframeContingencia'):
+        logging.warning(f"El aviso {aviso_id_str} contiene un PDF de contingencia. Saltando.")
+        return {'status': 'skipped_pdf'}
 
     try:
         # Extracción de datos
@@ -102,6 +101,9 @@ def main():
             if data['status'] == 'success':
                 database.save_aviso(conn, data)
                 current_id += 1
+            elif data['status'] == 'skipped_pdf':
+                logging.info(f"Aviso {aviso_id_str} saltado (PDF). Pasando al siguiente.")
+                current_id += 1 # Avanzamos al siguiente ID
             elif data['status'] == 'not_found':
                 logging.info(f"No hay más avisos. Esperando {RETRY_ON_EMPTY_SECONDS} segundos para reintentar.")
                 time.sleep(RETRY_ON_EMPTY_SECONDS)
@@ -110,9 +112,6 @@ def main():
             # Hubo un error de red o parseo, esperamos un poco antes de reintentar el mismo ID
             logging.error(f"Fallo al procesar {aviso_id_str}. Reintentando en 60 segundos.")
             time.sleep(60)
-
-        # Pausa cortés entre peticiones
-        #time.sleep(SLEEP_INTERVAL_SECONDS)
 
     conn.close()
 
