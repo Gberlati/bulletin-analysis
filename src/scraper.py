@@ -47,6 +47,7 @@ def scrape_aviso(aviso_id_str):
         breadcrumb_links = soup.select('ol.breadcrumb li a')
         rubro_link = breadcrumb_links[1]
         rubro = rubro_link.get_text(strip=True)
+        sociedad = soup.find(id='tituloDetalleAviso').select_one('h1').get_text(strip=True)
         
         # Extraer id_rubro de la URL del rubro
         parsed_url = urlparse(rubro_link['href'])
@@ -71,6 +72,7 @@ def scrape_aviso(aviso_id_str):
             'status': 'success',
             'aviso_id': aviso_id_str,
             'seccion': seccion,
+            'sociedad': sociedad,
             'rubro': rubro,
             'id_rubro': id_rubro,
             'fecha_publicacion': fecha_publicacion,
@@ -110,7 +112,7 @@ def main():
             time.sleep(60)
 
         # Pausa cortés entre peticiones
-        time.sleep(SLEEP_INTERVAL_SECONDS)
+        #time.sleep(SLEEP_INTERVAL_SECONDS)
 
     conn.close()
 

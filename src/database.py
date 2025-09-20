@@ -37,6 +37,7 @@ def setup_database(conn):
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 aviso_id VARCHAR(50) NOT NULL UNIQUE,
                 seccion VARCHAR(255),
+                sociedad VARCHAR(255),
                 rubro VARCHAR(255),
                 id_rubro VARCHAR(50),
                 fecha_publicacion DATE,
@@ -70,13 +71,14 @@ def save_aviso(conn, data):
     """Guarda un nuevo aviso en la base de datos."""
     cursor = conn.cursor()
     sql = """
-        INSERT INTO avisos (aviso_id, seccion, rubro, id_rubro, fecha_publicacion, detalle_aviso)
-        VALUES (%s, %s, %s, %s, %s, %s)
+        INSERT INTO avisos (aviso_id, seccion, sociedad, rubro, id_rubro, fecha_publicacion, detalle_aviso)
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
     """
     try:
         cursor.execute(sql, (
             data.get('aviso_id'),
             data.get('seccion'),
+            data.get('sociedad'),
             data.get('rubro'),
             data.get('id_rubro'),
             data.get('fecha_publicacion'),
