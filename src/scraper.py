@@ -46,7 +46,9 @@ def scrape_aviso(aviso_id_str):
         breadcrumb_links = soup.select('ol.breadcrumb li a')
         rubro_link = breadcrumb_links[1]
         rubro = rubro_link.get_text(strip=True)
-        sociedad = soup.find(id='tituloDetalleAviso').select_one('h1').get_text(strip=True)
+        
+        raw_sociedad_text = soup.find(id='tituloDetalleAviso').select_one('h1').get_text()
+        sociedad = ' '.join(raw_sociedad_text.split())
         
         # Extraer id_rubro de la URL del rubro
         parsed_url = urlparse(rubro_link['href'])
