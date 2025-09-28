@@ -8,4 +8,12 @@ dependencies = [
     "mysql-connector-python",
     "python-dotenv",
     "lxml",
+    "sqlalchemy>=2.0.43",
+]
+
+[project.optional-dependencies]
+training = [
+    "gemma>=3.2.1",
+    "jax[cuda13]>=0.7.2",
+    "jupyter>=1.1.1",
 ]
