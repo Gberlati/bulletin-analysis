@@ -8,12 +8,14 @@ dependencies = [
     "mysql-connector-python",
     "python-dotenv",
     "lxml",
-    "sqlalchemy>=2.0.43",
+    "sqlalchemy>=2.0.43"
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 training = [
+    "pandas>=2.3.2",
     "gemma>=3.2.1",
     "jax[cuda13]>=0.7.2",
     "jupyter>=1.1.1",
+    "matplotlib>=3.10.6"
 ]
