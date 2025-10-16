@@ -8,7 +8,13 @@ dependencies = [
     "mysql-connector-python",
     "python-dotenv",
     "lxml",
-    "sqlalchemy>=2.0.43"
+    "sqlalchemy>=2.0.43",
+    "spacy>=3.8.7",
+    "tqdm>=4.67.1",
+    "seaborn>=0.13.2",
+    "sentence-transformers>=5.1.1",
+    "scikit-learn>=1.7.2",
+    "torch>=2.8.0",
 ]
 
 [dependency-groups]
